@@ -1,0 +1,104 @@
+{% extends 'body.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-12 accounts-general-container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+                <h3>Search category</h3>
+            </div>
+        </div>
+        <hr>
+        <form method="get">
+            <div class="row">
+                {% for camps in form.searchForm %}
+                    <div class="col-10">
+                        <div class="row">
+                            <div class="col-12">
+                                {{ camps.label }}
+                            </div>
+                            <div class="col-12">
+                                {{ camps }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-2 d-flex align-items-end">
+                    <button class="btn btn-form form-control" type="submit">
+                        <span>
+                            <i class="bi bi-search"></i> Search
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 accounts-general-container mt-5">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+                <h3>Results</h3>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Category name</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rows in queryset %}
+                            <tr>
+                                <td>{{ rows.category_name }}</td>
+                                <td>
+                                    <a class="btn btn-form" href="{% url 'editCategoryUrl' rows.category_alias %}">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger" href="{% url 'deleteCategoryUrl' rows.category_alias %}">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 accounts-general-container mt-5">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+                {% url 'categoriesUrl' as category %}
+                {% if request.path == category %}
+                    <h3>Add new category</h3>
+                {% else %}
+                    <h3>Edit category</h3>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                {% for camps in form.addForm %}
+                    <div class="col-12 mb-3">
+                        <div class="row">
+                            <div class="col-12">
+                                {{ camps.label }}
+                            </div>
+                            <div class="col-12">
+                                {{ camps }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-2 offset-10">
+                    <button class="btn btn-form form-control" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

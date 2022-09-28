@@ -1,0 +1,29 @@
+{% url 'showAllAccountsUrl' as allAccounts %}
+{% url 'categoriesUrl' as categories %}
+{% url 'providersUrl' as providers %}
+{% url 'createAccountUrl' as home %}
+{% url 'productsUrl' as products %}
+{% url 'localsUrl' as locals %}
+
+<a class="{% if request.path == home %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ home }}">
+    <i class="bi bi-house"></i> Home
+</a>
+<hr>
+<a class="{% if request.path == categories %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ categories }}">
+    <i class="bi bi-tag"></i> Categories
+</a>
+<a class="{% if request.path == locals %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ locals }}">
+    <i class="bi bi-shop-window"></i> Locals
+</a>
+
+<a class="{% if request.path == products %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ products }}">
+    <i class="bi bi-box"></i> Products
+</a>
+
+
+<a class="{% if request.path == providers %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ providers }}">
+    <i class="bi bi-people"></i> Providers
+</a>
+<a class="{% if request.path == allAccounts %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ allAccounts }}">
+    <i class="bi bi-person"></i> Show all accounts
+</a>

@@ -1,0 +1,40 @@
+{% extends 'body.html' %}
+{% load static %}
+{% load binary %}
+{% block content %}
+<div class="row">
+    <div class="col-10 offset-1 accounts-general-container">
+        <div class="row">
+            <div class="col-4 d-flex justify-content-center">
+                {% if queryset.profile_image %}
+                <img class="profile-image-config" id="profile_image_settings" src="data:image/jpeg;base64,{{ queryset.profile_image | binary_image }}" alt="profile image">
+                {% else %}
+                <img class="profile-image-config" id="profile_image_settings" src="{% static 'images/icons/person.svg' %}" alt="profile image">
+                {% endif %}
+            </div>
+            <div class="col-8">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for camps in form %}
+                            <div class="col-12 mb-4">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ camps.label }}
+                                    </div>
+                                    <div class="col-12">
+                                        {{ camps }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="col-4 offset-8">
+                            <button class="btn btn-form form-control" type="submit">Save changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

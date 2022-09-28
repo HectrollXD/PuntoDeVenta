@@ -1,0 +1,162 @@
+{% extends 'body.html' %}
+{% load static %}
+{% load binary %}
+{% block content %}
+<div class="row">
+    <div class="col-10 offset-1 accounts-general-container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                {% comment %} image {% endcomment %}
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center mb-4">
+                            {% if request.user.profile_image %}
+                            <img class="profile-image-config" id="profile_image_settings" src="data:image/jpeg;base64,{{ request.user.profile_image | binary_image }}" alt="profile image">
+                            {% else %}
+                            <img class="profile-image-config" id="profile_image_settings" src="{% static 'images/icons/person.svg' %}" alt="profile image">
+                            {% endif %}
+                        </div>
+                        <div class="col-8 offset-2 d-flex justify-content-center">
+                            <label class="btn btn-form form-control" for="id_profile_image_name">
+                                <span><i class="bi bi-camera"></i> Select image</span>
+                            </label>
+                            {{ form.userForm.profile_image_name }}
+                        </div>
+                    </div>
+                </div>
+                {% comment %} form {% endcomment %}
+                <div class="col-8">
+                    <div class="row">
+                        {% comment %} employe id {% endcomment %}
+                        <div class="col-12 mb-4">
+                            <span>
+                                <b><i class="bi bi-card-list"></i> Employe ID: </b>{{ request.user.employes.employe_id }}
+                            </span>
+                            <br>
+                            <span>
+                                <b><i class="bi bi-person"></i> Username: </b>{{ request.user.username }}
+                            </span>
+                            {% if request.user.telephone_number %}
+                            <br>
+                            <span>
+                                <b><i class="bi bi-telephone"></i> Telephone: </b>{{ request.user.telephone_number }}
+                                <b>Ext: </b> {{ request.user.extension }}
+                            </span>
+                            {% endif %}
+                            <br>
+                            <span>
+                                <b><i class="bi bi-people"></i> User group: </b>{{ request.user.groups.get.name | title }}
+                            </span>
+                            <br>
+                        </div>
+                        {% comment %} name {% endcomment %}
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.employeForm.name.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.employeForm.name }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} first lastname {% endcomment %}
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.employeForm.first_lastname.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.employeForm.first_lastname }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} second lastname {% endcomment %}
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.employeForm.second_lastname.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.employeForm.second_lastname }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} telephone number {% endcomment %}
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.userForm.telephone_number.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.userForm.telephone_number }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} extension number {% endcomment %}
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.userForm.extension.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.userForm.extension }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} email {% endcomment %}
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.userForm.email.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.userForm.email }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} current password {% endcomment %}
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.passwordForm.password.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.passwordForm.password }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} new password {% endcomment %}
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.passwordForm.new_password.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.passwordForm.new_password }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} confirm new password {% endcomment %}
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form.passwordForm.confirm_new_password.label }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form.passwordForm.confirm_new_password }}
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} save changes {% endcomment %}
+                        <div class="col-4 offset-8">
+                            <button class="btn btn-form form-control" type="submit">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

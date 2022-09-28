@@ -1,0 +1,114 @@
+{% extends 'body.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-12 accounts-general-container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+                <h3>Search locals</h3>
+            </div>
+        </div>
+        <hr>
+        <form method="get">
+            <div class="row">
+                {% for camps in form.searchForm %}
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col-12">
+                                {{ camps.label }}
+                            </div>
+                            <div class="col-12">
+                                {{ camps }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-3 d-flex align-items-end">
+                    <button class="btn btn-form form-control" type="submit">
+                        <span>
+                            <i class="bi bi-search"></i> Search
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 accounts-general-container mt-5">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+                <h3>Results</h3>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Local name</th>
+                            <th scope="col">Street</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Postal code</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rows in queryset %}
+                            <tr>
+                                <td>{{ rows.local_name }}</td>
+                                <td>{{ rows.street }}</td>
+                                <td>{{ rows.number }}</td>
+                                <td>{{ rows.postal_code }}</td>
+                                <td>{{ rows.city }}</td>
+                                <td>{{ rows.state }}</td>
+                                <td>
+                                    <a class="btn btn-form" href="{% url 'editLocalUrl' rows.local_alias %}">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger" href="{% url 'deleteLocalUrl' rows.local_alias %}">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 accounts-general-container mt-5">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+                {% url 'localsUrl' as locals %}
+                {% if request.path == locals %}
+                    <h3>Add new local</h3>
+                {% else %}
+                    <h3>Edit local</h3>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                {% for camps in form.addForm %}
+                    <div class="col-12 mb-3">
+                        <div class="row">
+                            <div class="col-12">
+                                {{ camps.label }}
+                            </div>
+                            <div class="col-12">
+                                {{ camps }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-2 offset-10">
+                    <button class="btn btn-form form-control" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

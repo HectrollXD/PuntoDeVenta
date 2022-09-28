@@ -1,0 +1,33 @@
+{% extends 'body.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-10 col-lg-6 offset-1 offset-lg-3 login-container">
+        <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-center">
+                <h3>Login</h3>
+            </div>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {% for camps in form %}
+            <div class="row mb-4">
+                <div class="col-12">
+                    {{ camps.label }}
+                </div>
+                <div class="col-12">
+                    {{ camps }}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-12 col-md-8 d-flex align-items-center mb-4 mb-md-0">
+                    <a href="#">Forgot your password?</a>
+                </div>
+                <div class="col-12 col-md-4 d-flex justify-content-end align-items-center">
+                    <button class="btn btn-form form-control" id="id_btn_submit" type="submit">Log in</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

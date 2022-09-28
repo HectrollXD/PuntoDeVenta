@@ -1,0 +1,13 @@
+{% url 'categoriesUrl' as categories %}
+{% url 'providersUrl' as providers %}
+{% url 'productsUrl' as products %}
+<hr>
+<a class="{% if request.path == categories %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ categories }}">
+    <i class="bi bi-tag"></i> Categories
+</a>
+<a class="{% if request.path == products %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ products }}">
+    <i class="bi bi-box"></i> Products
+</a>
+<a class="{% if request.path == providers %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ providers }}">
+    <i class="bi bi-people"></i> Providers
+</a>

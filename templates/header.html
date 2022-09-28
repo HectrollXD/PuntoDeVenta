@@ -1,0 +1,82 @@
+{% url 'logoutUrl' as logout %}
+{% url 'configAccountUrl' request.user.username as configure %}
+
+{% load static %}
+{% load binary %}
+
+{% if request.user.is_authenticated %}
+<nav class="navbar navbar-expand-lg bg-navbar-blue">
+    <div class="container-fluid">
+        <h2>{{ appName }}</h2>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="btn btn-menu-var" data-bs-toggle="offcanvas" href="#canvasNavMenu" role="button" aria-controls="canvasNavMenu">
+                    <i class="bi bi-list"></i>
+                </a>
+            </li>
+        </ul> 
+    </div>
+</nav>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="canvasNavMenu" aria-labelledby="canvasNavMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="Menu">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                {% if request.user.profile_image_name %}
+                <img class="profile-image" src="data:image/jpeg;base64,{{ request.user.profile_image | binary_image }}" alt="profile image">
+                {% else %}
+                <img class="profile-image" src="{% static 'images/icons/person.svg' %}" alt="profile image">
+                {% endif %}
+            </div>
+            <div class="col-12 d-flex justify-content-start mt-4">
+                <span>
+                    <b>Username: </b> {{ request.user.username }}
+                </span>
+            </div>
+            <div class="col-12 d-flex justify-content-start">
+                <span>
+                    <b>Email: </b> {{ request.user.email }}
+                </span>
+            </div>
+            <div class="col-12 d-flex justify-content-start">
+                <span>
+                    <b>Telephone: </b> {{ request.user.telephone_number }} <b>Ext.: </b>{{ request.user.extension }}
+                </span>
+            </div>
+            <div class="col-12 d-flex justify-content-start">
+                <span>
+                    <b>Employe ID: </b> {{ request.user.employes.employe_id }}
+                </span>
+            </div>
+            <div class="col-12 d-flex justify-content-start">
+                <span>
+                    <b>Name: </b> {{ request.user.employes.name | title }} {{ request.user.employes.first_lastname | title }} {{ request.user.employes.second_lastname | title }}
+                </span>
+            </div>
+            <div class="col-12 d-flex justify-content-start">
+                <span>
+                    <b>User group: </b> {{ request.user.groups.get.name | title }}
+                </span>
+            </div>
+        </div>
+        <hr>
+        {% if request.user.groups.get.id == 1 %}
+            {% include 'shared/nav_admin.html' %}
+        {% elif request.user.groups.get.id == 2 %}
+            {% include 'shared/nav_manager.html' %}
+        {% elif request.user.groups.get.id == 3 %}
+            {% include 'shared/nav_employe.html' %}
+        {% endif %}
+        <hr>
+        <a class="{% if request.path == configure %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ configure }}">
+            <i class="bi bi-gear"></i> Configure account
+        </a>
+        <a class="{% if request.path == logout %}link-menu-nav-active{% else %}link-menu-nav{% endif %}" href="{{ logout }}">
+            <i class="bi bi-box-arrow-left"></i> Logout
+        </a>
+    </div>
+</div>
+{% endif %}

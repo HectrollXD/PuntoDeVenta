@@ -1,0 +1,88 @@
+{% extends 'body.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-10 col-lg-6 offset-1 offset-lg-3 accounts-general-container">
+        <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-center">
+                <h3>Create new account</h3>
+            </div>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {% for camps in form.employeForm %}
+                <div class="row mb-4">
+                    <div class="col-12">
+                        {{ camps.label }}
+                    </div>
+                    <div class="col-12">
+                        {{ camps }}
+                    </div>
+                </div>
+            {% endfor %}
+            {% for camps in form.accountForm %}
+                {% if camps.label == 'User group' %}
+                    <div class="row mb-4">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ camps.label }}
+                                </div>
+                                <div class="col-12">
+                                    {{ camps }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 d-flex align-items-end">
+                            <button type="button" class="btn btn-form form-control" data-bs-toggle="modal" data-bs-target="#addGroupModal">
+                                Add new group
+                            </button>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            {{ camps.label }}
+                        </div>
+                        <div class="col-12">
+                            {{ camps }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="row">
+                <div class="col-12 col-md-4 offset-md-8 d-flex justify-content-end align-items-center">
+                    <button class="btn btn-form form-control" id="id_btn_submit" type="submit">Register account</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="addGroupModal" tabindex="-1" aria-labelledby="addGroupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addGroupModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form.groupForm.name.label }}
+                        </div>
+                        <div class="col-12">
+                            {{ form.groupForm.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-form">Add group</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

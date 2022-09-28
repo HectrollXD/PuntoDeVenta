@@ -1,0 +1,22 @@
+.login-container{
+    padding: 40px 20px;
+    margin-top: 20vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: -4px 4px 10px #6e6e6e;
+}
+
+.profile-image-config{
+    display: block;
+    width: 300px;
+    height: 300px;
+    background-color: #dadada;
+}
+
+.accounts-general-container{
+    padding: 40px 20px;
+    margin-top: 50px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: -4px 4px 10px #6e6e6e;
+}

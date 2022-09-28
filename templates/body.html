@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'images/icons/bootstrap-icons.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles/body.css' %}">
+        <link rel="stylesheet" href="{% static 'css/styles/accounts.css' %}">
+        <title>{{ titleOfPage }}</title>
+    </head>
+    <body>
+        <header>
+            {% include 'header.html' %}
+        </header>
+        <main class="container-fluid">
+            {% if messages %}
+                {% include 'modal.html' %}
+            {% endif %}
+            <div class="row">
+                <div class="col-12 col-md-10 offset-0 offset-md-1 general-container">
+                {% block content %}
+                {% endblock content %}
+                </div>
+            </div>
+        </main>
+        <footer>
+            {% include 'foother.html' %}
+        </footer>
+    </body>
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery/jquery.js' %}"></script>
+    <script src="{% static 'js/scripts/body.js' %}"></script>
+</html>

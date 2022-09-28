@@ -1,0 +1,84 @@
+{% extends 'body.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-12 accounts-general-container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+                <h3>Search user</h3>
+            </div>
+        </div>
+        <hr>
+        <form method="get">
+            <div class="row">
+                {% for camps in form %}
+                    <div class="col-2">
+                        <div class="row">
+                            <div class="col-12">
+                                {{ camps.label }}
+                            </div>
+                            <div class="col-12">
+                                {{ camps }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-2 d-flex align-items-end">
+                    <button class="btn btn-form form-control" type="submit">
+                        <span>
+                            <i class="bi bi-search"></i> Search
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 accounts-general-container mt-5">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-start">
+                <h3>Results</h3>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">User group</th>
+                            <th scope="col">Telephone</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rows in queryset %}
+                            <tr>
+                                <td>{{ rows.username }}</td>
+                                <td>{{ rows.email }}</td>
+                                <td>{{ rows.employes.first_lastname | title }} {{ rows.employes.second_lastname | title }} {{ rows.employes.name | title }}</td>
+                                <td>{{ rows.groups.get.name | title }}</td>
+                                <td>
+                                    {{ rows.telephone_number }}
+                                    {% if rows.extension %}
+                                        <b>Ext.: </b>{{ rows.extension }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn btn-form" href="{% url 'editAccountUrl' rows.username %}">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-danger" href="{% url 'deleteAccountUrl' rows.id %}">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
